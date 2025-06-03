@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: file-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: file-service-pod
+  template:
+    metadata:
+      labels:
+        app: file-service-pod
+    spec:
+      containers:
+      - name: file-service
+        image: nnhainam/file-service-img:v1
+        ports:
+        - containerPort: 8084
+        env:
+        - name: STORAGE_DIR
+          valueFrom:
+            configMapKeyRef:
+              name: file-service-config
+              key: STORAGE_DIR
+        - name: MONGO_USER
+          valueFrom:
+            configMapKeyRef:
+              name: file-service-config
+              key: MONGO_USER
+        - name: MONGO_PASS
+          valueFrom:
+            secretKeyRef:
+              name: file-service-secret
+              key: MONGO_PASS
+        - name: MONGO_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: file-service-config
+              key: MONGO_HOST
+        - name: MONGO_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: file-service-config
+              key: MONGO_PORT
+        - name: DOWNLOAD-PREFIX
+          valueFrom:
+            configMapKeyRef:
+              name: file-service-config
+              key: DOWNLOAD-PREFIX
+        - name: DOWNLOAD-PORT
+          valueFrom:
+            configMapKeyRef:
+              name: file-service-config
+              key: DOWNLOAD-PORT
+        volumeMounts:
+        - name: uploads-volume
+          mountPath: /app/uploads
+      volumes:
+      - name: uploads-volume
+        persistentVolumeClaim:
+          claimName: file-service-pvc

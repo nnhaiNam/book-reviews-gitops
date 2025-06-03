@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: post-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: post-service-pod
+  template:
+    metadata:
+      labels:
+        app: post-service-pod
+    spec:
+      containers:
+      - name: post-service
+        image: nnhainam/post-service-img:v1
+        ports:
+        - containerPort: 8083
+        env:
+        - name: MONGO_USER
+          valueFrom:
+            configMapKeyRef:
+              name: post-config
+              key: MONGO_USER
+        - name: MONGO_PASS
+          valueFrom:
+            secretKeyRef:
+              name: post-secret
+              key: MONGO_PASS
+        - name: MONGO_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: post-config
+              key: MONGO_HOST
+        - name: MONGO_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: post-config
+              key: MONGO_PORT
+        - name: PROFILE_SERVICE_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: post-config
+              key: PROFILE_SERVICE_HOST
+        - name: PROFILE_SERVICE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: post-config
+              key: PROFILE_SERVICE_PORT   
+        

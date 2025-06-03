@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: file-service-pv
+spec:
+  capacity:
+    storage: 2Gi
+  accessModes:
+    - ReadWriteMany
+  storageClassName: nfs-storage
+  persistentVolumeReclaimPolicy: Retain
+  nfs:
+    path: /data/file-service-data
+    server: 192.168.43.44

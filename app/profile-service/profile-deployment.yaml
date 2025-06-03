@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: profile-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: profile-service-pod
+  template:
+    metadata:
+      labels:
+        app: profile-service-pod
+    spec:
+      containers:
+      - name: profile-service
+        image: nnhainam/profile-service-img:v1
+        ports:
+        - containerPort: 8081
+        env:
+        - name: NEO4J_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: profile-config
+              key: NEO4J_HOST
+        - name: NEO4J_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: profile-config
+              key: NEO4J_PORT
+        - name: FILE_SERVICE_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: profile-config
+              key: FILE_SERVICE_HOST
+        - name: FILE_SERVICE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: profile-config
+              key: FILE_SERVICE_PORT
+        - name: NEO4J_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: profile-secret
+              key: NEO4J_PASSWORD

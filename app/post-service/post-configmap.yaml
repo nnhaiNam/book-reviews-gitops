@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: post-config
+data:
+  MONGO_USER: root
+  MONGO_HOST: mongodb-container
+  MONGO_PORT: "27017"
+  PROFILE_SERVICE_HOST: profle-service
+  PROFILE_SERVICE_PORT: "8081"

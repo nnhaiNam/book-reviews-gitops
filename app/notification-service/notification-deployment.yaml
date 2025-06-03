@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: notification-service-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: notification-service-pod
+  template:
+    metadata:
+      labels:
+        app: notification-service-pod
+    spec:
+      containers:
+      - name: notification-service
+        image: nnhainam/notification-service-img:v1
+        ports:
+        - containerPort: 8082
+        env:
+        - name: MONGO_USER
+          valueFrom:
+            configMapKeyRef:
+              name: notification-config
+              key: MONGO_USER
+        - name: MONGO_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: notification-config
+              key: MONGO_HOST
+        - name: MONGO_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: notification-config
+              key: MONGO_PORT
+        - name: KAFKA_HOSTNAME
+          valueFrom:
+            configMapKeyRef:
+              name: notification-config
+              key: KAFKA_HOSTNAME
+        - name: KAFKA_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: notification-config
+              key: KAFKA_PORT
+        - name: MONGO_PASS
+          valueFrom:
+            secretKeyRef:
+              name: notification-secret
+              key: MONGO_PASS
+        - name: BREVO_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: notification-secret
+              key: BREVO_API_KEY
