@@ -2,10 +2,11 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: file-service-config
+  namespace: book-review
 data:
   STORAGE_DIR: /app/uploads
   MONGO_USER: root
   MONGO_HOST: mongodb-container
   MONGO_PORT: "27017"
-  DOWNLOAD-PREFIX: NLB-3dd9325d2a6e0fa6.elb.ap-southeast-1.amazonaws.com # DNS of NLB here
+  DOWNLOAD-PREFIX: NLB-1129803db6c1f595.elb.ap-southeast-1.amazonaws.com
   DOWNLOAD-PORT: "80"
