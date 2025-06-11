@@ -11,4 +11,4 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   nfs:
     path: /data/file-service-data
-    server: 192.168.43.44
+    server: 192.168.1.120
