@@ -7,5 +7,5 @@ data:
   MONGO_USER: root
   MONGO_HOST: mongodb-container
   MONGO_PORT: "27017"
-  DOWNLOAD-PREFIX: NLB-3dd9325d2a6e0fa6.elb.ap-southeast-1.amazonaws.com # DNS of NLB here
+  DOWNLOAD-PREFIX: NLB-e5641d7c34a5d958.elb.ap-southeast-1.amazonaws.com # DNS of NLB here
   DOWNLOAD-PORT: "80"
