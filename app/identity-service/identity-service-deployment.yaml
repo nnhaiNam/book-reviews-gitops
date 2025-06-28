@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: identity-service-deployment
+  namespace: book-review
 spec:
   replicas: 1
   selector:
@@ -58,3 +59,12 @@ spec:
             configMapKeyRef:
               name: identity-config
               key: PROFILE_PORT
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "512Mi"
+          limits:
+            memory: "512Mi"
+
+      imagePullSecrets:
+        - name: harbor-secret

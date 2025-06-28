@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: post-service-deployment
+  namespace: book-review
 spec:
   replicas: 1
   selector:
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: post-service
-        image: nnhainam/post-service-img:v1
+        image: registry.harinemdevops.online/book-reviews/post-service:develop-df89c08
         ports:
         - containerPort: 8083
         env:
@@ -47,5 +48,7 @@ spec:
           valueFrom:
             configMapKeyRef:
               name: post-config
-              key: PROFILE_SERVICE_PORT   
+              key: PROFILE_SERVICE_PORT
+      imagePullSecrets:
+        - name: harbor-secret   
         

@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: profile-service-deployment
+  namespace: book-review
 spec:
   replicas: 1
   selector:
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: profile-service
-        image: nnhainam/profile-service-img:v1
+        image: registry.harinemdevops.online/book-reviews/profile-service:develop-df89c08
         ports:
         - containerPort: 8081
         env:
@@ -43,3 +44,5 @@ spec:
             secretKeyRef:
               name: profile-secret
               key: NEO4J_PASSWORD
+      imagePullSecrets:
+        - name: harbor-secret

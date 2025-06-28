@@ -1,0 +1,15 @@
+kubectl create secret generic alertmanager-prometheus-kube-prometheus-alertmanager \
+  --from-file=alertmanager.yaml=alertmanager-config.yaml \
+  -n monitoring \
+  --dry-run=client -o yaml | kubectl apply -f -
+  
+  
+kubectl delete pod -n monitoring -l app.kubernetes.io/name=alertmanager
+
+kubectl drain k8s-master-2 --ignore-daemonsets --delete-emptydir-data
+kubectl uncordon k8s-master-2
+
+
+helm upgrade prometheus prometheus-community/kube-prometheus-stack \
+  -n monitoring \
+  -f my-alertmanager-values.yaml

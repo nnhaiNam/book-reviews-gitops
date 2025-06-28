@@ -2,10 +2,13 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: api-gateway-ingress
+  namespace: book-review
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
 spec:
   ingressClassName: nginx
   rules:
-    - host: api.harinemedu.vn
+    - host: api.argocdbookharinem.online
       http:
         paths:
           - path: /api/
@@ -15,4 +18,3 @@ spec:
                 name: api-gateway
                 port:
                   number: 80
-

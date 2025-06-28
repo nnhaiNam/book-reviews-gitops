@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: notification-service-deployment
+  namespace: book-review
 spec:
   replicas: 1
   selector:
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: notification-service
-        image: nnhainam/notification-service-img:v1
+        image: registry.harinemdevops.online/book-reviews/notification-service:develop-df89c08
         ports:
         - containerPort: 8082
         env:
@@ -53,3 +54,5 @@ spec:
             secretKeyRef:
               name: notification-secret
               key: BREVO_API_KEY
+      imagePullSecrets:
+        - name: harbor-secret
