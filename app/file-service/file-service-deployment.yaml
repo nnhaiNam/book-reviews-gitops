@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: file-service-deployment
+  namespace: book-review
 spec:
   replicas: 1
   selector:
@@ -14,7 +15,7 @@ spec:
     spec:
       containers:
       - name: file-service
-        image: nnhainam/file-service-img:v1
+        image: registry.harinemdevops.online/book-reviews/file-service:develop-df89c08
         ports:
         - containerPort: 8084
         env:
@@ -60,3 +61,5 @@ spec:
       - name: uploads-volume
         persistentVolumeClaim:
           claimName: file-service-pvc
+      imagePullSecrets:
+        - name: harbor-secret

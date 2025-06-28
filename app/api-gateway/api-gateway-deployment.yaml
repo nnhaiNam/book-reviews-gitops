@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: api-gateway-deployment
+  namespace: book-review
 spec:
   replicas: 1
   selector:
@@ -14,9 +15,11 @@ spec:
     spec:
       containers:
         - name: api-gateway
-          image: nnhainam/api-gateway-bookharinem:v1
+          image: registry.harinemdevops.online/book-reviews/api-gateway:develop-df89c08
           ports:
             - containerPort: 8888
           envFrom:
             - configMapRef:
                 name: api-gateway-config
+      imagePullSecrets:
+        - name: harbor-secret

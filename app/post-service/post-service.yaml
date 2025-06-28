@@ -2,6 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: post-service
+  namespace: book-review
 spec:
   selector:
     app: post-service-pod
