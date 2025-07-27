@@ -1,0 +1,57 @@
+pipeline {
+    agent any
+
+    environment {
+        USERNAME_DOCKER="harinem"
+    }
+
+    parameters {
+        string(name: 'DOCKERTAG', defaultValue: 'latest', description: 'Docker image tag'),
+        string(name: 'CHANGED_SERVICES', defaultValue: "", description: 'Comma-separated list of changed services'),
+        
+    }
+
+    stages {
+        stage('Clone Repository') {
+            steps {
+                checkout scm
+                scripts {
+                    def currentBranch=env.BRANCH_NAME
+                    env.BRANCH=currentBranch
+                    echo "Clone Repository Done!!✅✅"
+                    echo "Current Branch => ${currentBranch}"
+                }
+            }
+        }
+
+        stage('Update GITOPS REPO') {
+            steps {
+                scripts {
+                    catchError(buildResult: 'SUCCESS',stageResult: 'FAILURE'){
+                        withCredentials([usernamePassword(credentialsId: 'github',passwordVariable: 'GIT_PASSWORD',usernameVariable: 'GIT_USERNAME')]){
+                            sh """
+                                git config --global user.email "hainam000090@gmail.com"
+                                git config --global user.name "nnhainam"
+
+                            """
+
+                            def changedServices=env.CHANGED_SERVICES.split(",")
+                            for (service in changedServices){
+                                def svc=service
+                                echo "📄 Update IMAGE TAG for ${svc}:"
+                                def imageName="${env.USERNAME_DOCKER}/${svc}-img:${env.IMAGE_TAG}"
+                                
+                                sh """
+                                    sed -i 's+${env.USERNAME_DOCKER}/${svc}.*+${env.USERNAME_DOCKER}/${svc}:${params.DOCKERTAG}+g' ./app/${svc}/${svc}-deployment.yaml
+                                """
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
+
+
+    }
+}
