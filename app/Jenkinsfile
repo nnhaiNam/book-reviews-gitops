@@ -41,6 +41,7 @@ pipeline {
                                 def imageName="${env.USERNAME_DOCKER}/${svc}-img:${env.IMAGE_TAG}"
                                  
                                 sh """
+                                    ls
                                     sed -i 's+${env.USERNAME_DOCKER}/${svc}.*+${env.USERNAME_DOCKER}/${svc}:${params.DOCKERTAG}+g' app/${svc}/${svc}-deployment.yaml
                                 """
                             }
