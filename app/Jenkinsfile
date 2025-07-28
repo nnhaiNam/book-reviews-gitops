@@ -34,7 +34,7 @@ pipeline {
 
                             """
 
-                            def changedServices=env.CHANGED_SERVICES.split(",")
+                            def changedServices=params.CHANGED_SERVICES.split(",")
                             for (service in changedServices){
                                 def svc=service
                                 echo "📄 Update IMAGE TAG for ${svc}:"
