@@ -43,6 +43,8 @@ pipeline {
                                 sh """
                                     ls
                                     sed -i 's+${env.USERNAME_DOCKER}/${svc}.*+${env.USERNAME_DOCKER}/${svc}:${params.DOCKERTAG}+g' app/${svc}/${svc}-deployment.yaml
+                                    echo "✅ After Update:"
+                                    cat app/${svc}/${svc}-deployment.yaml
                                 """
                             }
                             sh """
