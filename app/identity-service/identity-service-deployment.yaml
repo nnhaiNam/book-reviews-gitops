@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: identity-service
-        image: nnhainam/identity-service-img:v1
+        image: harinem/identity-service-img:v1
         ports:
         - containerPort: 8080
         env:

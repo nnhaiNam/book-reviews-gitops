@@ -16,7 +16,7 @@ spec:
       containers:
       - name: file-service
         #image: registry.harinemdevops.online/book-reviews/file-service:develop-df89c08
-        image: nnhainam/file-service-img:v1
+        image: harinem/file-service-img:v1
         ports:
         - containerPort: 8084
         env:

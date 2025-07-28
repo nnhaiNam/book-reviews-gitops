@@ -16,7 +16,7 @@ spec:
       containers:
         - name: api-gateway
           #image: registry.harinemdevops.online/book-reviews/api-gateway:develop-df89c08
-          image: nnhainam/api-gateway-img:v1
+          image: harinem/api-gateway-img:v1
           ports:
             - containerPort: 8888
           envFrom:

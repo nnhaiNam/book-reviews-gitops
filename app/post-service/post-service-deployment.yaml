@@ -16,7 +16,7 @@ spec:
       containers:
       - name: post-service
         #image: registry.harinemdevops.online/book-reviews/post-service:develop-df89c08
-        image: nnhainam/post-service-img:v1
+        image: harinem/post-service-img:v1
         ports:
         - containerPort: 8083
         env:

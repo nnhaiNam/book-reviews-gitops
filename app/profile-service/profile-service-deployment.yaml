@@ -16,7 +16,7 @@ spec:
       containers:
       - name: profile-service
         #image: registry.harinemdevops.online/book-reviews/profile-service:develop-df89c08
-        image: profile-service-img:v1
+        image: harinem/profile-service-img:v1
         ports:
         - containerPort: 8081
         env:
