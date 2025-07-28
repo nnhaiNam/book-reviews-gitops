@@ -14,7 +14,7 @@ pipeline {
         stage('Clone Repository') {
             steps {
                 checkout scm
-                scripts {
+                script {
                     def currentBranch=env.BRANCH_NAME
                     env.BRANCH=currentBranch
                     echo "Clone Repository Done!!✅✅"
@@ -25,7 +25,7 @@ pipeline {
 
         stage('Update GITOPS REPO') {
             steps {
-                scripts {
+                script {
                     catchError(buildResult: 'SUCCESS',stageResult: 'FAILURE'){
                         withCredentials([usernamePassword(credentialsId: 'github',passwordVariable: 'GIT_PASSWORD',usernameVariable: 'GIT_USERNAME')]){
                             sh """
