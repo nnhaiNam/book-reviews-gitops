@@ -39,9 +39,9 @@ pipeline {
                                 def svc=service
                                 echo "📄 Update IMAGE TAG for ${svc}:"
                                 def imageName="${env.USERNAME_DOCKER}/${svc}-img:${env.IMAGE_TAG}"
-                                
+                                 
                                 sh """
-                                    sed -i 's+${env.USERNAME_DOCKER}/${svc}.*+${env.USERNAME_DOCKER}/${svc}:${params.DOCKERTAG}+g' ./app/${svc}/${svc}-deployment.yaml
+                                    sed -i 's+${env.USERNAME_DOCKER}/${svc}.*+${env.USERNAME_DOCKER}/${svc}:${params.DOCKERTAG}+g' /app/${svc}/${svc}-deployment.yaml
                                 """
                             }
 
