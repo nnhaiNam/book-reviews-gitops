@@ -45,6 +45,11 @@ pipeline {
                                     sed -i 's+${env.USERNAME_DOCKER}/${svc}.*+${env.USERNAME_DOCKER}/${svc}:${params.DOCKERTAG}+g' app/${svc}/${svc}-deployment.yaml
                                 """
                             }
+                            sh """
+                                git add .
+                                git commit -m 'Done by Jenkins Job changemanifest: ${params.DOCKERTAG}'
+                                git push https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/book-review-gitops.git HEAD:develop
+                            """
 
                         }
                     }
